@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Bunking Prototype</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .header {
+            background-color: #0047AB;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .content {
+            display: flex;
+            margin: 20px;
+        }
+        .main {
+            flex: 3;
+            padding: 20px;
+        }
+        .sidebar {
+            flex: 1;
+            background-color: #eef3fb;
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+        .fact-check {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+        }
+        .misinfo {
+            background-color: #FF4D4D;
+        }
+        .verified {
+            background-color: #4CAF50;
+        }
+        .chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            display: none;
+        }
+        .chatbot-header {
+            background-color: #0047AB;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .chatbot-body {
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+        }
+        .chatbot-footer {
+            padding: 10px;
+            display: flex;
+        }
+        .chatbot-footer input {
+            flex: 1;
+            padding: 5px;
+            margin-right: 5px;
+        }
+        .chatbot-footer button {
+            padding: 5px 10px;
+            background-color: #0047AB;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #0047AB;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Pre-Bunking Tool Prototype</h1>
+</div>
+
+<div class="content">
+    <div class="main">
+        <h2>Breaking News: Political Developments</h2>
+        <p>Example headline: "Prominent Political Figure Makes Major Announcement".</p>
+    </div>
+    <div class="sidebar">
+        <h3>Live Pre-Bunking Updates</h3>
+        <div class="fact-check misinfo">
+            <strong>Misinformation Alert:</strong> This claim is unverified.
+        </div>
+        <div class="fact-check verified">
+            <strong>Verified Information:</strong> Official sources confirm no immediate changes.
+        </div>
+    </div>
+</div>
+
+<div class="chatbot" id="chatbot">
+    <div class="chatbot-header">Ask Us</div>
+    <div class="chatbot-body" id="chatbot-body">
+        <p><strong>User:</strong> Is this headline accurate?</p>
+        <p><strong>Bot:</strong> Current updates confirm that more information is being verified. Stay tuned!</p>
+    </div>
+    <div class="chatbot-footer">
+        <input type="text" id="chat-input" placeholder="Ask a question...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<div class="chat-icon" onclick="toggleChatbot()">💬</div>
+
+<script>
+    function toggleChatbot() {
+        const chatbot = document.getElementById('chatbot');
+        chatbot.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('chat-input');
+        const message = input.value;
+        if (!message.trim()) return;
+
+        const chatbotBody = document.getElementById('chatbot-body');
+        const userMessage = document.createElement('p');
+        userMessage.innerHTML = `<strong>User:</strong> ${message}`;
+
+        const botResponse = document.createElement('p');
+        botResponse.innerHTML = `<strong>Bot:</strong> Thank you for your question. More updates will follow soon.`;
+
+        chatbotBody.appendChild(userMessage);
+        chatbotBody.appendChild(botResponse);
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+        input.value = '';
+    }
+</script>
+
+</body>
+</html>
